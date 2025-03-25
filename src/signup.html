@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vote</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      .vid-container {
+        position: relative;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .bgvid,
+      .bgvid.inner {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -1;
+        border: none;
+      }
+      .inner-container {
+        width: 400px;
+        height: 450px;
+        position: absolute;
+        top: calc(50vh - 200px);
+        left: calc(50vw - 200px);
+        overflow: hidden;
+      }
+      .box {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        font-family: Helvetica;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.23);
+        padding: 30px 0px;
+      }
+      .box h1 {
+        text-align: center;
+        margin: 30px 0;
+        font-size: 30px;
+      }
+      .box input {
+        display: block;
+        width: 300px;
+        margin: 20px auto;
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.2);
+        color: #fff;
+        border: 0;
+      }
+      .box input:focus,
+      .box input:active,
+      .box button:focus,
+      .box button:active {
+        outline: none;
+      }
+      .box button {
+        background: #2ecc71;
+        border: 0;
+        color: #fff;
+        padding: 10px;
+        font-size: 20px;
+        width: 330px;
+        margin: 20px auto;
+        display: block;
+        cursor: pointer;
+      }
+      .box button:active {
+        background: #27ae60;
+      }
+      .box p {
+        font-size: 14px;
+        text-align: center;
+      }
+      .box p span {
+          cursor: pointer;
+          color: #666;
+      }.signup-form .error{color: red;}
+      .error-message {
+        color: red;
+        cursor: pointer;
+        color: #666;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="vid-container">
+      <!-- Vimeo Background Video -->
+      <iframe class="bgvid" 
+        src="https://player.vimeo.com/video/1063967742?background=1&autoplay=1&loop=1&muted=1"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+
+      <div class="inner-container">
+        <div class="box">
+          <h1>Sign Up</h1>
+          <form action="/signup-submit" method="POST" class="signup-form">
+          <div class="error"></div>
+            
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="text" name="username" placeholder="Username" required />
+            
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+            <button type="submit">Sign Up</button>
+          </form>
+          <p>Already a member? <span><a href="/login">Login</a></span></p>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

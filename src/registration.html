@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voter Registration</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #d6d8dc;
+        margin: 0;
+        padding: 0;
+      }
+      .header {
+        background: #fcfcfc;
+        color: rgb(0, 0, 0);
+        padding: 15px;
+        text-align: center;
+        font-size: 24px;
+        position: relative;
+      }
+      .back-button {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        background: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      .back-button:hover {
+        background: #0056b3;
+      }
+      .container {
+        max-width: 900px;
+        margin: 30px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        font-weight: bold;
+        display: block;
+      }
+      input, select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+      }
+      .btn-group {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+      button {
+        width: 200px;
+        background: #007bff;
+        color: white;
+        padding: 12px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      .clear-btn {
+        background: #6c757d;
+      }
+      .clear-btn:hover {
+        background: #5a6268;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      Voter Registration Portal
+      <button class="back-button" onclick="window.history.back();">Back</button>
+    </div>
+    <div class="container">
+      <h1>Voter Registration Form</h1>
+      <form action="/register" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required />
+        </div>
+        <div class="form-group">
+          <label for="aadhar">Aadhar Card Number *</label>
+          <input type="text" id="aadhar" name="aadhar" required />
+        </div>
+        <h2>Address Details</h2>
+        <div class="form-group">
+          <input type="text" name="house_no" placeholder="House No" required />
+        </div>
+        <div class="form-group">
+          <input type="text" name="street" placeholder="Street" required />
+        </div>
+        <div class="form-group">
+          <input type="text" name="landmark" placeholder="Landmark" required />
+        </div>
+        <div class="form-group">
+          <input type="text" name="district" placeholder="District" required />
+        </div>
+        <div class="form-group">
+          <input type="text" name="state" placeholder="State" required />
+        </div>
+        <div class="form-group">
+          <input type="text" name="postal_pin" placeholder="Postal PIN" required />
+        </div>
+        <h2>Biometric Verification</h2>
+        <div class="form-group">
+          <label>Upload Fingerprint *</label>
+          <input type="file" name="fingerprint" accept="image/*" required />
+        </div>
+        <div class="form-group">
+          <label>Upload Face Recognition Image *</label>
+          <input type="file" name="face" accept="image/*" required />
+        </div>
+        <div class="btn-group">
+          <button type="submit">Submit</button>
+          <button type="reset" class="clear-btn">Clear</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

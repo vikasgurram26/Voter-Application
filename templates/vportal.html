@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .header-container {
+            background: #f5f9fd;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ddd;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header-container h2 {
+            color: rgb(12, 12, 12);
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header-container a {
+            text-decoration: none;
+            color: rgb(27, 13, 226);
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .header-container a:hover {
+            color: #ffdd57;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            background: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button.verify {
+            background: #28a745;
+            margin-top: 10px;
+        }
+        button.verify:hover {
+            background: #218838;
+        }
+        .voter-details {
+            margin-top: 20px;
+        }
+        .voter-details p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+        .voter-details img {
+            display: block;
+            width: 150px;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .qr-code {
+            margin-top: 20px;
+            text-align: center;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        .modal h2 {
+            margin-bottom: 20px;
+        }
+        .modal a {
+            display: block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .modal a:hover {
+            color: #0056b3;
+        }
+        .modal button {
+            margin-top: 10px;
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .modal button:hover {
+            background: #0056b3;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        function verifyFingerprint() {
+            // Add your fingerprint verification logic here
+            alert('Fingerprint verification process initiated.');
+
+            // Assuming the fingerprint verification is successful
+            generateQRCode('{{ voter.aadhar }}');
+        }
+
+        function generateQRCode(aadhar) {
+            var qrcodeContainer = document.getElementById('qrcode');
+            qrcodeContainer.innerHTML = '';
+            var qrcode = new QRCode(qrcodeContainer, aadhar);
+
+            // Show the modal
+            var modal = document.getElementById('qrModal');
+            modal.style.display = 'block';
+
+            // Add download functionality
+            setTimeout(function() {
+                var qrCanvas = qrcodeContainer.querySelector('canvas');
+                var downloadLink = document.getElementById('downloadLink');
+                downloadLink.href = qrCanvas.toDataURL('image/png');
+                downloadLink.download = 'qrcode.png';
+            }, 500); // Wait for QR code to be generated
+        }
+
+        // Close the modal when the user clicks on <span> (x)
+        function closeModal() {
+            var modal = document.getElementById('qrModal');
+            modal.style.display = 'none';
+        }
+
+        // Print the QR code
+        function printQRCode() {
+            var printWindow = window.open('', '_blank');
+            var qrCanvas = document.getElementById('qrcode').querySelector('canvas');
+            var qrImage = qrCanvas.toDataURL('image/png');
+            printWindow.document.write('<img src="' + qrImage + '">');
+            printWindow.document.close();
+            printWindow.print();
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h2>मतदाता सेवा पोर्टल<br>eVOTERS' SERVICE PORTAL</h2>
+            <a href="/">Home</a>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Voter Portal</h1>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="aadhar">Enter Aadhar Card Number</label>
+                    <input type="text" id="aadhar" name="aadhar" pattern="\d{12}" maxlength="12" required>
+                </div>
+                <button type="submit">Fetch Details</button>
+            </form>
+
+            {% if voter %}
+            <div class="voter-details">
+                <h2>Voter Details</h2>
+                <p><strong>Full Name:</strong> {{ voter.name }}</p>
+                <p><strong>Phone Number:</strong> {{ voter.phone }}</p>
+                <p><strong>Aadhar Card Number:</strong> {{ voter.aadhar }}</p>
+                <p><strong>Address:</strong> {{ voter.house_no }}, {{ voter.street }}, {{ voter.landmark }}, {{ voter.district }}, {{ voter.state }}, {{ voter.postal_pin }}</p>
+
+                {% if voter.fingerprint %}
+                    <p><strong>Fingerprint:</strong></p>
+                    <img src="data:image/jpeg;base64,{{ voter.fingerprint }}" alt="Fingerprint">
+                    <button type="button" class="verify" onclick="verifyFingerprint()">Verify</button>
+                {% endif %}
+
+                {% if voter.face %}
+                    <p><strong>Face Recognition Image:</strong></p>
+                    <img src="data:image/jpeg;base64,{{ voter.face }}" alt="Face">
+                {% endif %}
+            </div>
+            <div id="qrcode" class="qr-code"></div>
+            {% endif %}
+        </div>
+    </main>
+
+    <!-- The Modal -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>QR Code</h2>
+            <div id="qrcode"></div>
+            <a id="downloadLink" href="#" download="qrcode.png">Download QR Code</a>
+            <button onclick="printQRCode()">Print QR Code</button>
+        </div>
+    </div>
+</body>
+</html>

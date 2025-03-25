@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://www.pngkit.com/png/full/951-9515339_prime-minister-narendra-modis-address-to-the-nation.png" type="image/png">
+    <title>eVOTERS' SERVICE PORTAL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafaf8;
+            margin: 0;
+            min-height: 100vh;
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: flex-start;
+            margin-top: 50px;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: 15px 100px;
+            border-radius: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+        }
+        .navbar .logo {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4a4a4a;
+            display: flex;
+            align-items: center;
+        }
+        .navbar .logo img {
+            margin-right: 10px;
+            height: 30px;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        .navbar ul li {
+            cursor: pointer;
+            color: #6c757d;
+            transition: color 0.3s;
+        }
+        .navbar ul li:hover, .navbar ul li.active {
+            color: #007bff;
+        }
+        .navbar .button {
+            background: #094cdc;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .navbar .button:hover {
+            background: #0056b3;
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* Footer Styles */
+        footer {
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+            /*position: fixed;
+            bottom: 0;*/
+        }
+
+        .section {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+        }
+        ul {
+            list-style-type: square;
+        }
+        /* Contact Section Styles */
+
+
+    h2 {
+        color: #2c3e50;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    form {
+        max-width: 450px;
+        margin: auto;
+        padding: 30px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        text-align: left;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    button {
+        background: #007BFF;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+         
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .profile-dropdown a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .profile-section {
+            position: relative;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="https://www.pngkit.com/png/full/951-9515339_prime-minister-narendra-modis-address-to-the-nation.png" alt="Logo">
+            eVOTERS' SERVICE PORTAL
+        </div>
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Features</li>
+            <li>Contact</li>
+            <li>
+                <div>
+                <a href="/registration">Voter Registration </a>
+                </div>
+            </li>    
+            <li class="dropdown">
+                <span>Portal Selection ▼</span>
+                <div class="dropdown-content">
+                    <a href="/vportal">Voter Aadhaar Verification Portal</a>
+                    <a href="/qrportal">QR Generate Slips</a>
+                    <a href="/faportal">Facial Recognition Portal</a>
+                </div>
+            </li>
+        </ul>
+        <a href="/login" id="loginButton"><button class="button">Login</button></a>
+        <div id="profileSection" class="profile-section" style="display: none;">
+            <img src="https://via.placeholder.com/40" alt="Avatar" class="profile-avatar" onclick="toggleProfileDropdown()">
+            <div id="profileDropdown" class="profile-dropdown">
+                <a href="/profile">Profile</a>
+                <a href="#">Settings</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section" id="about">
+        <h2>About Us</h2>
+        <div class="about-container">
+            <h2>🚀 Innovating the Future with Cloud Technology</h2>
+            <p>Founded in 2025, <strong>Cloud Tech</strong> is a cutting-edge technology startup dedicated to revolutionizing cloud-based solutions for businesses and industries worldwide. 
+               We specialize in developing <strong>scalable, secure, and AI-driven cloud architectures</strong> that empower organizations to operate efficiently in real-time.</p>
+    
+            <p>At Cloud Tech, we bridge the gap between <strong>innovation and implementation</strong> by designing intelligent solutions that optimize workflows, enhance data security, and accelerate digital transformation.</p>
+    
+            <div class="highlights">
+                <ul>
+                    <li>✅ Real-time cloud computing for high-performance applications</li>
+                    <li>✅ Seamless API integrations to streamline business operations</li>
+                    <li>✅ AI-powered automation to enhance efficiency and decision-making</li>
+                    <li>✅ Data-driven insights & real-time analytics for smarter solutions</li>
+                </ul>
+            </div>
+    
+            <p>Whether it’s powering <strong>next-gen enterprise software</strong>, managing <strong>large-scale data infrastructures</strong>, or deploying <strong>cloud-native AI applications</strong>, 
+               Cloud Tech is committed to building the future—one innovation at a time.</p>
+    
+            <p class="cta">🌐 Join us in redefining the future of cloud technology—where speed, security, and scalability converge!</p>
+        </div>
+    </section>
+
+    <section class="section" id="features">
+        <h2> Features</h2>
+        <div class="container">
+            <h3>🔹 User Registration Features</h3>
+            <ul>
+                <li><strong>Aadhaar Integration</strong> – Users provide their Aadhaar number for identity validation.</li>
+                <li><strong>Biometric Data Collection</strong> – Users submit fingerprints and live photos for authentication.</li>
+                <li><strong>Cloud Data Storage</strong> –
+                    <ul>
+                        <li>Fingerprints stored securely in <strong>Cloud SQL</strong>.</li>
+                        <li>Facial ID metadata stored in <strong>Cloud Storage</strong> and processed using <strong>Vertex AI</strong>.</li>
+                    </ul>
+                </li>
+                <li><strong>Encryption & Security</strong> – Biometric data is encrypted before storage to prevent unauthorized access.</li>
+            </ul>
+            
+            <h3>🔹 Voting Process Features</h3>
+            <ul>
+                <li><strong>Voter Authentication</strong> –
+                    <ul>
+                        <li>Username lookup in <strong>Firestore</strong> to retrieve voter profile.</li>
+                        <li>Fingerprint authentication via <strong>Cloud SQL</strong>.</li>
+                        <li>Voting slip (QR Code or barcode) generation.</li>
+                    </ul>
+                </li>
+                <li><strong>Biometric Verification</strong> –
+                    <ul>
+                        <li>QR slip is scanned to activate live facial recognition using <strong>Vertex AI</strong>.</li>
+                        <li>If face matches registered data, voter is allowed to proceed.</li>
+                    </ul>
+                </li>
+                <li><strong>Vote Casting</strong> – Secure vote submission stored in <strong>Cloud SQL</strong>.</li>
+                <li><strong>Real-time Status Update</strong> – Firestore updates ensure real-time monitoring of votes cast.</li>
+            </ul>
+            
+            <h3>🔹 Admin & Security Management</h3>
+            <ul>
+                <li><strong>Admin Dashboard</strong> – Manage voter registration, view election stats, and troubleshoot authentication issues.</li>
+                <li><strong>Role-Based Access Control (RBAC)</strong> – Admins, voting officers, and users have different access levels.</li>
+                <li><strong>Audit Logs & Monitoring</strong> – Track all login attempts and voting actions via <strong>Google Cloud Logging</strong>.</li>
+            </ul>
+        </div>
+    </section>
+ <section class="section" id="contact">
+  
+    <h2>📩 Get in Touch</h2>
+    <p>Have any questions or inquiries? Feel free to reach out, and we’ll get back to you as soon as possible.</p>
+    
+    <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+    
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+    
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+    
+        <button type="submit">Send Message</button>
+    </form>
+    </section>
+    <footer>
+     <style>
+            footer a {
+                color: #007bff;
+                text-decoration: none;
+            }
+            footer a:hover {
+                text-decoration: underline;
+            }
+            </style>
+    <div class="footer-content">
+    <p>Company Address: 123 Main Street, Anytown, USA</p>
+    <p>
+        Social Media Links:
+        <a href="https://www.google.com">Google</a>,
+        <a href="https://www.facebook.com">Facebook</a>
+    </p>
+    <p>Official Site: <a href="https://www.example.com">Company Website</a></p>
+    <p>Mobile Numbers:6304051605</p>
+    <p>Copyright ©2023 All rights reserved by:Cloud Tech</p>
+    </div>
+</footer>
+
+    <script>
+        // Simulate login state
+        const isLoggedIn = true; // Change this based on actual login state
+        const username = "JohnDoe"; // Replace with actual username
+
+        window.onload = function() {
+            if (isLoggedIn) {
+                document.getElementById('loginButton').style.display = 'none';
+                document.getElementById('profileSection').style.display = 'block';
+                document.getElementById('usernameDisplay').innerText = username;
+            }
+        };
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function logout() {
+            // Handle logout logic here
+            alert('Logged out');
+            document.getElementById('loginButton').style.display = 'block';
+            document.getElementById('profileSection').style.display = 'none';
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-avatar')) {
+                const dropdowns = document.getElementsByClassName("profile-dropdown");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === 'block') {
+                        openDropdown.style.display = 'none';
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+---------------
+main.py
+---------------
+# main.py
+import os
+import json
+from flask import Flask, send_file, request, redirect, url_for, render_template
+
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return send_file('src/index.html')
+
+@app.route("/login")
+def login():
+    return send_file('src/login.html')
+
+@app.route("/signup")
+def signup():
+    return send_file('src/signup.html')
+
+@app.route("/vportal")
+def vportal():
+    return send_file('src/vportal.html')
+
+@app.route("/qrportal")
+def qrportal():
+    return send_file('src/qrportal.html')
+
+@app.route("/faportal")
+def faportal():
+    return send_file('src/faportal.html')
+
+@app.route("/registration")
+def registration():
+    return send_file('src/registration.html')
+
+@app.route("/profile")
+def profile():
+    return send_file('src/profile.html')
+
+    
+
+    
+    
+@app.route("/submit", methods=["POST"])
+def submit():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+
+        try:
+            with open("users.json", "r") as f:
+                users = json.load(f)
+        except FileNotFoundError:            
+            return 'invalid credentials'
+
+        for user in users:
+            if user["username"] == username and user["password"] == password:
+                return redirect(url_for("home"))
+
+        return 'invalid credentials'
+        
+    return 'invalid credentials'
+    
+@app.route("/signup-submit", methods=["POST"])
+def signup_submit():
+
+    
+
+    if request.method == "POST":
+        username = request.form["username"]
+        email = request.form["email"]
+        password = request.form["password"]        
+
+        new_user = {
+            "username": username,
+            "email": email,
+            "password": password
+        }
+        
+        try:
+            with open("users.json", "r") as f:
+                users = json.load(f)
+        except FileNotFoundError:
+            users = []
+        for user in users:
+            if user['username'] == username or user['email'] == email:
+                return render_template("signup.html",errorMessage='username or email already exist')
+
+        users.append(new_user)
+        with open("users.json", "w") as f:
+            json.dump(users, f, indent=4)
+
+        # Data to be pushed to Firebase
+        user_data = {
+            "username": new_user["username"],
+            "email": new_user["email"],
+            "password": new_user["password"]
+        }
+        return redirect(url_for("login"))
+
+def main():
+    app.run(port=int(os.environ.get('PORT', 80)))
+
+if __name__ == "__main__":
+    main()
+
+
+---------------
+Vote Portal
+--------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voters' Service Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+        }
+        .header-container {
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ddd;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header-container h2 {
+            color: #333;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .header-container a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .main-container {
+            background: white;
+            margin: 30px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            text-align: center;
+        }
+        .search-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .search-options button {
+            border: none;
+            padding: 15px 20px;
+            background: #ddd;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+        .search-options .active, .search-options button:hover {
+            background: #007bff;
+            color: white;
+        }
+        .search-options button:nth-child(1):hover {
+            background: orange;
+        }
+        .search-options button:nth-child(2):hover {
+            background: whitesmoke;
+            color: black;
+        }
+        .search-options button:nth-child(3):hover {
+            background: green;
+            color: white;
+        }
+        .search-box {
+            margin-top: 20px;
+            padding: 20px;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        .form-group div {
+            flex: 1;
+            margin: 0 10px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .captcha {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .captcha img {
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        .buttons button {
+            padding: 14px 22px;
+            border: none;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0 15px;
+            transition: 0.3s;
+        }
+        .buttons .search {
+            background: #007bff;
+            color: white;
+        }
+        .buttons .clear {
+            background: #ccc;
+        }
+        .buttons button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h2>मतदाता सेवा पोर्टल<br>eVOTERS' SERVICE PORTAL</h2>
+            <a href="/">Home</a>
+        </div>
+    </header>
+    <main>
+        <div class="main-container">
+            <h2>🔍 Search in Electoral Roll</h2>
+            <div class="search-options">
+                <button>🔎 ईपीआईसी द्वारा खोजें / Search by EPIC</button>
+                <button>📄 विवरण द्वारा खोजें / Search by Details</button>
+                <button>📱 मोबाइल द्वारा खोजें / Search by Mobile</button>
+            </div>
+            <div class="search-box">
+                <div class="form-group">
+                    <div>
+                        <label>EPIC Number *</label>
+                        <input type="text" placeholder="Your EPIC Number">
+                    </div>
+                    <div>
+                        <label>State *</label>
+                        <select>
+    <option>Select Your State</option>
+    <option>Andhra Pradesh</option>
+    <option>Arunachal Pradesh</option>
+    <option>Assam</option>
+    <option>Bihar</option>
+    <option>Chhattisgarh</option>
+    <option>Delhi</option>
+    <option>Goa</option>
+    <option>Gujarat</option>
+    <option>Haryana</option>
+    <option>Himachal Pradesh</option>
+    <option>Jharkhand</option>
+    <option>Karnataka</option>
+    <option>Kerala</option>
+    <option>Madhya Pradesh</option>
+    <option>Maharashtra</option>
+    <option>Manipur</option>
+    <option>Meghalaya</option>
+    <option>Mizoram</option>
+    <option>Nagaland</option>
+    <option>Odisha</option>
+    <option>Punjab</option>
+    <option>Rajasthan</option>
+    <option>Sikkim</option>
+    <option>Tamil Nadu</option>
+    <option>Telangana</option>
+    <option>Tripura</option>
+    <option>Uttar Pradesh</option>
+    <option>Uttarakhand</option>
+    <option>West Bengal</option>
+</select>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="search">SEARCH</button>
+                    <button class="clear">CLEAR</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eVOTERS' FACIAL RECOGNITION PORTAL</title>
+    <style>
+    @import url(https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap);
+.card,
+.content,
+body {
+	overflow: hidden;
+}
+body {
+	width: 100vw;
+	height: 100vh;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: black;
+}
+.card,
+.container {
+	display: flex;
+	align-items: center;
+}
+.card {
+	width: 1280px;
+	height: 720px;
+	margin: 0;
+	justify-content: center;
+}
+.container-full,
+.content {
+	width: 1000px;
+	height: 562px;
+}
+.backgroundImage {
+	position: absolute;
+	width: 1000px;
+}
+.boyImage {
+	position: absolute;
+	width: 1000px;
+	z-index: 2;
+	animation: 200s linear infinite blur;
+}
+.content {
+	border-radius: 40px;
+	animation: 200s linear infinite brightness;
+}
+.container {
+	justify-content: center;
+}
+.container-full,
+.face {
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+}
+.container-full {
+	margin: 0;
+	justify-content: center;
+	transform: scale(1);
+	animation: 200s linear infinite zoom-in;
+}
+.cube,
+.face {
+	width: 870px;
+	height: 190px;
+}
+.cube {
+	position: relative;
+	transform-style: preserve-3d;
+	perspective: 480px;
+	transform-style: preserve-3d;
+	perspective-origin: 51% 70%;
+}
+.face,
+.hue {
+	position: absolute;
+}
+.face {
+	background: 0 0;
+	border: 0 solid #000;
+	opacity: 0.5;
+}
+.bottom,
+.top {
+	width: 870px;
+	height: 870px;
+}
+p {
+	white-space: nowrap;
+	overflow: hidden;
+	font-family: "Bebas Neue", sans-serif;
+	font-weight: 400;
+	font-size: calc(6em + (190px / 10) * 0.7);
+	padding-top: 20px;
+	color: #fff;
+}
+span {
+	color: red;
+}
+.front {
+	transform: translateZ(435px);
+	display: none;
+}
+.back {
+	transform: translateZ(-435px) rotateY(180deg) scaleX(-1);
+}
+.left {
+	transform: translateX(-435px) rotateY(-90deg) scaleX(-1);
+}
+.right {
+	transform: translateX(435px) rotateY(90deg) scaleX(-1);
+}
+.top {
+	transform: translateY(-435px) rotateX(90deg) scaleY(-1);
+}
+.bottom {
+	transform: translateY(-245px) rotateX(-90deg) scaleY(-1);
+}
+.left p {
+	margin-left: 480px;
+	animation: 200s linear infinite left;
+}
+.back p {
+	margin-left: -390px;
+	animation: 200s linear infinite back;
+}
+.right p {
+	margin-left: -1260px;
+	animation: 200s linear infinite right;
+}
+@keyframes left {
+	100% {
+		margin-left: -54000px;
+	}
+}
+@keyframes back {
+	100% {
+		margin-left: -54870px;
+	}
+}
+@keyframes right {
+	100% {
+		margin-left: -55740px;
+	}
+}
+.hue {
+	top: 0;
+	left: 0;
+	z-index: 3;
+	width: 100%;
+	height: 100%;
+	mix-blend-mode: overlay;
+	background: #1e5799;
+	background: radial-gradient(ellipse at center, #1e5799 0, #7db9e8 100%);
+	opacity: 1;
+}
+.hue.animated {
+	-webkit-animation: 8s infinite filter-animation;
+	animation: 8s infinite filter-animation;
+}
+.container-reflect {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 380px;
+	filter: blur(10px);
+}
+.container-reflect .cube {
+	perspective-origin: 51% -30%;
+}
+.container-reflect .back {
+	transform: translateZ(-435px) rotateY(180deg) scaleX(-1) scaleY(-1);
+}
+.container-reflect .left {
+	transform: translateX(-435px) rotateY(-90deg) scaleX(-1) scaleY(-1);
+}
+.container-reflect .right {
+	transform: translateX(435px) rotateY(90deg) scaleX(-1) scaleY(-1);
+}
+
+.container-reflect p {
+	transform: scaleY(70%);
+}
+
+@keyframes filter-animation {
+	0%,
+	100% {
+		filter: hue-rotate(0deg);
+	}
+	50% {
+		filter: hue-rotate(100deg);
+	}
+}
+@keyframes zoom-in {
+	0% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(2.5);
+	}
+}
+@keyframes blur {
+	0% {
+		filter: blur(0px);
+	}
+	100% {
+		filter: blur(3px);
+	}
+}
+@keyframes brightness {
+	0% {
+		filter: brightness(1) contrast(1);
+	}
+	100% {
+		filter: brightness(0.8) contrast(1.3);
+	}
+}
+
+ 
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="container-full">
+                <div class="animated hue"></div>
+                <img class="backgroundImage" src="https://drive.google.com/thumbnail?id=1_ZMV_LcmUXLsRokuz6WXGyN9zVCGfAHp&sz=w1920" alt="Background">
+                <img class="boyImage" src="https://drive.google.com/thumbnail?id=1eGqJskQQgBJ67myGekmo4YfIVI3lfDTm&sz=w1920" alt="Boy">
+                <div class="container">
+                    <div class="cube">
+                        <div class="face top"></div>
+                        <div class="face bottom"></div>
+                        <div class="face left text"></div>
+                        <div class="face right text"></div>
+                        <div class="face front"></div>
+                        <div class="face back text"></div>
+                    </div>
+                </div>
+                <div class="container-reflect">
+                    <div class="cube">
+                        <div class="face top"></div>
+                        <div class="face bottom"></div>
+                        <div class="face left text"></div>
+                        <div class="face right text"></div>
+                        <div class="face front"></div>
+                        <div class="face back text"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    // Poem text
+const kiplingPoem = `<p> We sincerely <span>apologize for the temporary unavailability</span>  
+    of this page. Our team is currently <span>working on implementing cutting-edge technology</span>
+    to enhance your experience and provide you with improved features and functionality. As we strive to
+    bring you the best, there may be <span> occasional disruptions or temporary downtimes.</span> 
+    Please know that<span> these interruptions are necessary</span> steps in our journey to <span>innovate and upgrade our systems </span>
+    for better performance, security, and efficiency. We understand that this may cause<span> inconvenience</span>,
+    and we truly appreciate your patience and understanding during this time. Our goal is to ensure that when the
+    page is available again, it will offer a more <span>seamless, reliable, and enriched experience </span>for all our users.
+    Rest assured, our team is working <span>diligently to complete these upgrades </span>as quickly as possible. We value your 
+    support and are excited to share the improvements with you soon. In the meantime, we encourage you to <span>stay connected with us for updates</span>
+    on when the page will be back online. If you have any <span>urgent concerns or need assistance</span>, please feel free to
+    <span>reach out to our support team</span>, who will be happy to help. Once again, we <span>sincerely regret any inconvenience</span> caused and 
+    appreciate your <span>patience</span> as we work on these <span>advancements.</span> Thank you for being part of our journey
+    toward a <span>more advanced and efficient platform.</span></p>`;
+
+// Function to insert poem into divs
+function insertPoemIntoDivs() {
+	// Get all .text divs
+	const textDivs = document.querySelectorAll(".text");
+
+	// Insert poem into all .text divs
+	textDivs.forEach((div) => {
+		div.innerHTML = kiplingPoem;
+	});
+}
+
+// Call the function when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", insertPoemIntoDivs);
+
+const contentDiv = document.querySelector(".content");
+function adjustContentSize() {
+	const viewportWidth = window.innerWidth;
+	const baseWidth = 1000;
+	const scaleFactor =
+		viewportWidth < baseWidth ? (viewportWidth / baseWidth) * 0.8 : 1;
+	contentDiv.style.transform = `scale(${scaleFactor})`;
+}
+window.addEventListener("load", adjustContentSize);
+window.addEventListener("resize", adjustContentSize);
+
+    </script>
+    
+</body>
+</html>

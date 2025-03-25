@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+ name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://www.pngkit.com/png/full/951-9515339_prime-minister-narendra-modis-address-to-the-nation.png" type="image/png">
+    <title>eVOTERS' SERVICE PORTAL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+        }
+        .navbar .logo {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4a4a4a;
+            display: flex;
+            align-items: center;
+        }
+        .navbar .logo img {
+            margin-right: 10px;
+            height: 30px;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        .navbar ul li {
+            cursor: pointer;
+            color: #6c757d;
+            transition: color 0.3s;
+        }
+        .navbar ul li:hover, .navbar ul li.active {
+            color: #007bff;
+        }
+        .navbar .button {
+            background: #007bff;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .navbar .button:hover {
+            background: #0056b3;
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="https://www.pngkit.com/png/full/951-9515339_prime-minister-narendra-modis-address-to-the-nation.png" alt="Logo">
+            eVOTERS' SERVICE PORTAL
+        </div>
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Features</li>
+            <li>Contact</li>
+            <li>
+                <a href="/registration">Voter Registration </a>
+            </li>    
+            <li class="dropdown">
+                <span>Portal Selection ▼</span>
+                <div class="dropdown-content">
+                    <a href="/vportal">Voter Aadhaar Verification Portal</a>
+                    <a href="/qrportal">QR Generate Slips</a>
+                    <a href="/faportal">Facial Recognition Portal</a>
+                </div>
+            </li>
+        </ul>
+        <a href="/login"><button class="button">Login</button></a>
+    </nav>
+</body>
+</html>

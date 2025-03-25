@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eVOTERS' SERVICE PORTAL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 60px;
+          height: 34px;
+        }
+        
+        .switch input { 
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+            
+
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+            
+        
+        .dark-mode input:checked + .slider {
+            background-color: white;
+        }
+
+        .dark-mode input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+          }
+          .dark-mode .bg-white{
+            background-color: #121212;
+            color:#ffffff;
+          }
+          .dark-mode .bg-gray-200{
+            background-color: black;
+          }
+          .dark-mode .text-gray-700{
+            color: #ffffff;
+          }
+
+        .dark-mode .qr-facial-bg {
+            background-color: #121212;
+           
+        }
+        .dark-mode .qr-facial-bg p{
+            background-color: #121212;
+            color: white; 
+        }
+        .qr-facial-bg {
+            background-color: white;
+        }
+        .button {
+            background-color: blue; 
+            color: white;
+        }
+         
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .profile-dropdown a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .profile-section {
+            position: relative;
+            display: inline-block;
+        }
+        
+        
+    </style>
+</head>
+<body class="bg-gray-100 font-sans duration-500">
+
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center bg-white py-4 px-10 shadow-md rounded-full w-4/5 mx-auto mt-4">
+        <div class="flex items-center space-x-2 text-gray-700 font-bold text-lg">
+            <img src="https://www.pngkit.com/png/full/951-9515339_prime-minister-narendra-modis-address-to-the-nation.png" alt="Logo" class="h-8">
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            
+            <span>eVOTERS' SERVICE PORTAL</span>
+        </div>
+        <ul class="hidden md:flex space-x-6 text-gray-600">
+            <li class="hover:text-blue-500 cursor-pointer">Home</li>
+           
+
+             <li class="hover:text-blue-500 cursor-pointer">About</li>
+            <li class="hover:text-blue-500 cursor-pointer">Features</li>
+            <li class="hover:text-blue-500 cursor-pointer">Contact</li>
+            <li>
+                <a href="/registration" class="text-blue-600 hover:underline">Voter Registration</a>
+            </li>
+             <li class="relative group">
+                <span class="cursor-pointer">Portal Selection ▼</span>
+                <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-48" id="portalDropdown">
+                    <a href="/vportal" class="block px-4 py-2 hover:bg-gray-100">Voter Aadhaar Verification Portal</a>
+                    <a href="/qrportal" class="block px-4 py-2 hover:bg-gray-100">QR Generate Slips</a>
+                    <a href="/faportal" class="block px-4 py-2 hover:bg-gray-100">Facial Recognition Portal</a>
+                </div>
+             </li>
+        </ul>
+        <a href="/login" id="loginButton"><button class="button px-4 py-2 rounded-full">Login</button></a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="text-center py-20">
+        <h1 class="text-4xl font-bold text-gray-800">Empowering Voters with Digital Services</h1>
+        <p class="text-gray-600 mt-4">A seamless and secure way to access election-related services online.</p>
+        <a href="/registration" class="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-800">Register Your Vote</a>
+    </section>
+    
+       <!-- Features Section -->
+       <section class="max-w-6xl mx-auto text-center py-12 duration-500">
+        <h2 class="text-3xl font-bold text-gray-800">Our Features</h2>
+        <div class="grid md:grid-cols-3 gap-6 mt-8">
+          <a href="/registration" class="block bg-white shadow-md rounded-lg p-6 hover:shadow-lg hover:scale-105 transition-all duration-300">
+            <h3 class="text-xl font-semibold">Voter Registration</h3>
+            <p class="text-gray-600 dark:text-gray-300">Easily register to vote online.</p>
+          </a>
+    
+            <div class="qr-facial-bg shadow-md rounded-lg p-6 hover:shadow-lg hover:scale-105 transition-all duration-300">
+                <h3 class="text-xl font-semibold">QR Code Slips</h3>
+                <p class="text-gray-700 dark:text-gray-300">Generate QR codes for easy access.</p>
+            </div>
+            <div class="qr-facial-bg shadow-md rounded-lg p-6 hover:shadow-lg hover:scale-105 transition-all duration-300">
+               <h3 class="text-xl font-semibold">Facial Recognition</h3>
+                <p class="text-gray-700 dark:text-gray-300">Enhance security with AI-powered verification.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Form -->
+    <section class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg duration-500">
+        <h2 class="text-2xl font-bold text-gray-800 text-center">Contact Us</h2>
+        <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
+            <label for="name" class="block text-gray-700 font-semibold">Full Name</label>
+            <input type="text" id="name" name="name" required class="w-full border border-gray-300 p-2 rounded-md mt-1 focus:ring focus:ring-blue-300">
+            <label for="email" class="block text-gray-700 font-semibold mt-4">Email</label>
+            <input type="email" id="email" name="email" required class="w-full border border-gray-300 p-2 rounded-md mt-1 focus:ring focus:ring-blue-300">
+            <label for="message" class="block text-gray-700 font-semibold mt-4">Message</label>
+            <textarea id="message" name="message" rows="5" required class="w-full border border-gray-300 p-2 rounded-md mt-1 focus:ring focus:ring-blue-300"></textarea>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md mt-4 hover:bg-blue-800">Send Message</button>
+        </form>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-black text-white py-6 mt-10 duration-500 px-4">
+        <div class="container mx-auto flex flex-col md:flex-row justify-around items-center">
+            <div class="mb-4 md:mb-0">
+                <p>Company Address: Vijaywada, Andhra Pradesh </p>
+            </div>
+            <div class="mb-4 md:mb-0">
+                <p>
+                    Social Media Links:
+                    <a href="https://www.google.com" class="text-blue-500 hover:text-blue-300 transition duration-300 ml-2">Google</a>,
+                    <a href="https://www.facebook.com" class="text-blue-500 hover:text-blue-300 transition duration-300 ml-2">Facebook</a>
+                </p>
+            </div>
+            <div class="mb-4 md:mb-0">
+                <p>Official Site: 
+                    <a href="https://www.example.com" class="text-blue-500 hover:text-blue-300 transition duration-300">Company Website</a>
+                </p>
+            </div>
+            <div class="mb-4 md:mb-0">
+                <p>Mobile Numbers: 6304051605</p>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+        <p class="font-bold">© 2025 Cloud Tech. All rights reserved.</p>
+
+        </div>
+    </footer>
+
+<script>
+    $(document).ready(function() {
+        const body = $('body');
+        const navLinks = $('nav ul li a');
+
+        // Dark mode toggle
+        $('.switch input[type="checkbox"]').on('change', function() {
+            body.toggleClass('dark-mode');
+        });
+
+        // Check login status and update button
+        function checkLoginStatus() {
+            $.get('/check-login-status', function(data) {
+                const loginButton = $('#loginButton button');
+                if (data.isLoggedIn) {
+                    loginButton.text('Logout');
+                    $('#loginButton').attr('href', '/logout');
+                } else {
+                    loginButton.text('Login');
+                    $('#loginButton').attr('href', '/login');
+                }
+            });
+        }
+
+        checkLoginStatus();
+    });
+</script>
+</body>
+</html>

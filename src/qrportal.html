@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eVoters' QR Service Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+        }
+        .header-container {
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ddd;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header-container h2 {
+            color: #333;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .header-container a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .main-container {
+            background: white;
+            margin: 30px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            text-align: center;
+        }
+        .search-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .search-options button {
+            border: none;
+            padding: 15px 20px;
+            background: #ddd;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+        .search-options .active, .search-options button:hover {
+            background: #007bff;
+            color: white;
+        }
+        .search-options button:nth-child(1):hover {
+            background: orange;
+        }
+        .search-options button:nth-child(2):hover {
+            background: whitesmoke;
+            color: black;
+        }
+        .search-options button:nth-child(3):hover {
+            background: green;
+            color: white;
+        }
+        .search-box {
+            margin-top: 20px;
+            padding: 20px;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+        .form-group div {
+            flex: 1;
+            margin: 0 10px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .captcha {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .captcha img {
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        .buttons button {
+            padding: 14px 22px;
+            border: none;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0 15px;
+            transition: 0.3s;
+        }
+        .buttons .search {
+            background: #007bff;
+            color: white;
+        }
+        .buttons .clear {
+            background: #ccc;
+        }
+        .buttons button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h2>मतदाता सेवा पोर्टल<br>eVOTERS' SERVICE PORTAL</h2>
+            <a href="/">Home</a>
+        </div>
+    </header>
+    <main>
+        <div class="main-container">
+            <h2>🔍 Search QR Generator Slip </h2>
+            <div class="search-options">
+                <button>🔎 ईपीआईसी द्वारा खोजें / Search by EPIC</button>
+ 
+                <button>📱 मोबाइल द्वारा खोजें / Search by Mobile</button>
+            </div>
+            <div class="search-box">
+                <div class="form-group">
+                    <div>
+                        <label>EPIC Number *</label>
+                        <input type="text" placeholder="Your EPIC Number">
+                    </div>
+                    <div>
+                        <label>State *</label>
+                        <select>
+    <option>Select Your State</option>
+    <option>Andhra Pradesh</option>
+    <option>Arunachal Pradesh</option>
+    <option>Assam</option>
+    <option>Bihar</option>
+    <option>Chhattisgarh</option>
+    <option>Delhi</option>
+    <option>Goa</option>
+    <option>Gujarat</option>
+    <option>Haryana</option>
+    <option>Himachal Pradesh</option>
+    <option>Jharkhand</option>
+    <option>Karnataka</option>
+    <option>Kerala</option>
+    <option>Madhya Pradesh</option>
+    <option>Maharashtra</option>
+    <option>Manipur</option>
+    <option>Meghalaya</option>
+    <option>Mizoram</option>
+    <option>Nagaland</option>
+    <option>Odisha</option>
+    <option>Punjab</option>
+    <option>Rajasthan</option>
+    <option>Sikkim</option>
+    <option>Tamil Nadu</option>
+    <option>Telangana</option>
+    <option>Tripura</option>
+    <option>Uttar Pradesh</option>
+    <option>Uttarakhand</option>
+    <option>West Bengal</option>
+</select>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="search">SEARCH</button>
+                    <button class="clear">CLEAR</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

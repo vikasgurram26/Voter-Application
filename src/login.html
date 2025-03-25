@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vote</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      .vid-container {
+        position: relative;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .bgvid,
+      .bgvid.inner {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -1;
+        border: none;
+      }
+      .inner-container {
+        width: 400px;
+        height: 400px;
+        position: absolute;
+        top: calc(50vh - 200px);
+        left: calc(50vw - 200px);
+        overflow: hidden;
+      }
+      .box {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        font-family: Helvetica;
+        color: #fff;
+        background: rgba(18, 16, 16, 0.23);
+        padding: 30px 0px;
+      }
+      .box h1 {
+        text-align: center;
+        margin: 30px 0;
+        font-size: 30px;
+      }
+      .box input {
+        display: block;
+        width: 300px;
+        margin: 20px auto;
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.337);
+        color: #fff;
+        border: 0;
+      }
+      .box input:focus,
+      .box input:active,
+      .box button:focus,
+      .box button:active {
+        outline: none;
+      }
+      .box button {
+        background: #2ecc71;
+        border: 0;
+        color: #fff;
+        padding: 10px;
+        font-size: 20px;
+        width: 330px;
+        margin: 20px auto;
+        display: block;
+        cursor: pointer;
+      }
+      .error {
+        color: red;
+        text-align: center;
+      }
+      .box button:active {
+        background: #27ae60;
+      }
+      .box p {
+        font-size: 14px;
+        text-align: center;
+      }
+      .box p span {
+        cursor: pointer;
+        color: #666;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="vid-container">
+      <!-- Vimeo Background Video -->
+      <iframe class="bgvid" 
+        src="https://player.vimeo.com/video/1063430450?background=1&autoplay=1&loop=1&muted=1"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+
+      <div class="inner-container">
+        <!-- Blurred Background (Optional, Can Use an Image Instead) -->
+        <iframe class="bgvid inner" 
+          
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+
+        <div class="box">
+          <h1>Login</h1>
+          <form method="POST" action="/submit" class="login-form">
+            
+           
+            <input type="text" placeholder="Username" name="username"/>
+            <input type="password" placeholder="Password" name="password"/>
+            <button type="submit">Submit</button>
+            <p>Not a member? <span><a href="/signup">Sign Up</a></span></p> 
+        </form>
+        </div> 
+        <script src="script.js"></script>
+
+    </div> 
+    </div>
+  </body>
+</html>
