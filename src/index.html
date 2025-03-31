@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eVOTERS' SERVICE PORTAL</title>
+    <link rel="icon" href="https://www.pngkit.com/png/full/951-9515339_prime-minister-narendra-modis-address-to-the-nation.png" type="image/png">
+    <title>eVOTER'S SERVICE PORTAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
@@ -133,7 +134,9 @@
             display: inline-block;
         }
         
-        
+        .username-text {
+            color: rgb(5, 154, 20);
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-sans duration-500">
@@ -168,7 +171,10 @@
                 </div>
              </li>
         </ul>
-        <a href="/login" id="loginButton"><button class="button px-4 py-2 rounded-full">Login</button></a>
+        <a href="/login" id="loginButton">
+            <span id="usernameDisplay" class="username-text"></span>
+            <button class="button px-4 py-2 rounded-full">Login</button>
+        </a>
     </nav>
 
     <!-- Hero Section -->
@@ -254,10 +260,13 @@
         function checkLoginStatus() {
             $.get('/check-login-status', function(data) {
                 const loginButton = $('#loginButton button');
+                const usernameDisplay = $('#usernameDisplay');
                 if (data.isLoggedIn) {
+                    usernameDisplay.text(`${data.username} `); // Display username before the button
                     loginButton.text('Logout');
                     $('#loginButton').attr('href', '/logout');
                 } else {
+                    usernameDisplay.text(''); // Clear username display
                     loginButton.text('Login');
                     $('#loginButton').attr('href', '/login');
                 }

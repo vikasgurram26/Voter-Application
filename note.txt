@@ -730,3 +730,7 @@ Vote Portal
     </main>
 </body>
 </html>
+
+
+
+git pull origin main && git push --force origin main

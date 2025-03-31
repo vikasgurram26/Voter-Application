@@ -3,16 +3,20 @@ import base64
 import json
 import mysql.connector
 from flask import Flask, send_file, request, redirect, url_for, render_template, flash, jsonify, session
+from functools import wraps
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-# Database configuration
+# Database configuration (using TCP/IP)
+
 db_config = {
-    'user': 'root',
-    'password': '6304G.Vik@s',
-    'host': 'localhost',
-    'database': 'voter_registration'
+    "user": "root",
+    "password": "6304G.Vik@s",
+    "database": "voter_registration",
+    "host": "34.131.70.235",  # Replace with actual Public IP
+    "port": 3306,
+    "auth_plugin": "mysql_native_password"
 }
 
 # ✅ Test MySQL Connection
@@ -29,6 +33,14 @@ for file in ["users.json", "profile.json"]:
         with open(file, "w") as f:
             json.dump([], f, indent=4)
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'logged_in' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route("/")
 def home():
     return send_file('src/index.html')
@@ -42,6 +54,7 @@ def signup():
     return send_file('src/signup.html')
 
 @app.route("/vportal", methods=["GET", "POST"])
+@login_required
 def vportal():
     voter = None
     if request.method == "POST":
@@ -67,16 +80,19 @@ def vportal():
     return render_template("vportal.html", voter=voter)
 
 @app.route("/qrportal")
+@login_required
 def qrportal():
-    return send_file('src/qrportal.html') 
+    return send_file('src/qrportal.html')
 
 @app.route("/faportal")
+@login_required
 def faportal():
-    return send_file('src/faportal.html') 
+    return send_file('src/faportal.html')
 
 @app.route("/registration")
+@login_required
 def registration():
-    return send_file('src/registration.html') 
+    return send_file('src/registration.html')
 
 @app.route("/profile")
 def profile():
@@ -96,6 +112,7 @@ def submit():
     for user in users:
         if user["username"] == username and user["password"] == password:
             session['logged_in'] = True
+            session['username'] = username  # Store the username in the session
             return redirect(url_for("home"))
 
     return '❌ Invalid credentials'
@@ -163,6 +180,8 @@ def register():
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, (name, phone, aadhar, house_no, street, landmark, district, state, postal_pin, fingerprint, face))
         conn.commit()
+
+        
         flash('Registration successful!', 'success')
     except mysql.connector.Error as err:
         flash(f'Error: {err}', 'danger')
@@ -199,7 +218,8 @@ def verify_fingerprint(fingerprint_data):
 @app.route('/check-login-status')
 def check_login_status():
     is_logged_in = 'logged_in' in session
-    return jsonify(isLoggedIn=is_logged_in)
+    username = session.get('username') if is_logged_in else None
+    return jsonify(isLoggedIn=is_logged_in, username=username)
 
 @app.route('/logout')
 def logout():
