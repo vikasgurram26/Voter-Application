@@ -1,8 +1,9 @@
 import os
 import base64
 import json
+from google.cloud import vision
 import mysql.connector
-from flask import Flask, send_file, request, redirect, url_for, render_template, flash, jsonify, session
+from flask import *
 from functools import wraps
 
 app = Flask(__name__)
@@ -11,12 +12,10 @@ app.secret_key = 'your_secret_key'
 # Database configuration (using TCP/IP)
 
 db_config = {
-    "user": "root",
-    "password": "6304G.Vik@s",
-    "database": "voter_registration",
-    "host": "34.131.70.235",  # Replace with actual Public IP
-    "port": 3306,
-    "auth_plugin": "mysql_native_password"
+    "user": os.getenv("DB_USER", "root"),
+    "password": os.getenv("DB_PASS", "6304G.Vik@s"),
+    "database": os.getenv("DB_NAME", "voter_registration"),
+    "unix_socket": f"/cloudsql/{os.getenv('INSTANCE_CONNECTION_NAME')}"
 }
 
 # ✅ Test MySQL Connection
@@ -26,6 +25,20 @@ try:
     print("✅ Database connection successful!")
 except mysql.connector.Error as err:
     print(f"❌ Database connection failed: {err}")
+
+
+
+#Remove this line after setting GOOGLE_APPLICATION_CREDENTIALS environment variable in google app engine
+
+
+# Verify the GOOGLE_APPLICATION_CREDENTIALS environment variable
+if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
+    print("❌ GOOGLE_APPLICATION_CREDENTIALS environment variable is not set.")
+else:
+    print(f"✅ GOOGLE_APPLICATION_CREDENTIALS is set to: {os.getenv('GOOGLE_APPLICATION_CREDENTIALS')}")
+
+# Print GOOGLE_APPLICATION_CREDENTIALS environment variable
+print(os.getenv("GOOGLE_APPLICATION_CREDENTIALS"))    
 
 # ✅ Ensure JSON Files Exist
 for file in ["users.json", "profile.json"]:
@@ -103,19 +116,27 @@ def submit():
     username = request.form["username"]
     password = request.form["password"]
 
-    try:
-        with open("users.json", "r") as f:
-            users = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        users = []
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor(dictionary=True)
 
-    for user in users:
-        if user["username"] == username and user["password"] == password:
+    try:
+        # Check if the username and password match
+        cursor.execute("SELECT * FROM users WHERE username = %s AND password = %s", (username, password))
+        user = cursor.fetchone()
+
+        if user:
             session['logged_in'] = True
             session['username'] = username  # Store the username in the session
             return redirect(url_for("home"))
+        else:
+            return '❌ Invalid credentials'
 
-    return '❌ Invalid credentials'
+    except mysql.connector.Error as err:
+        return f"❌ Database error: {err}"
+
+    finally:
+        cursor.close()
+        conn.close()
 
 @app.route("/signup-submit", methods=["POST"])
 def signup_submit():
@@ -123,20 +144,27 @@ def signup_submit():
     email = request.form["email"]
     password = request.form["password"]
 
-    new_user = {"username": username, "email": email, "password": password}
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
 
     try:
-        with open("users.json", "r") as f:
-            users = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        users = []
+        # Check if the username or email already exists
+        cursor.execute("SELECT * FROM users WHERE username = %s OR email = %s", (username, email))
+        existing_user = cursor.fetchone()
 
-    if any(user['username'] == username or user['email'] == email for user in users):
-        return render_template("signup.html", errorMessage='❌ Username or email already exists')
+        if existing_user:
+            return render_template("signup.html", errorMessage='❌ Username or email already exists')
 
-    users.append(new_user)
-    with open("users.json", "w") as f:
-        json.dump(users, f, indent=4)
+        # Insert the new user into the database
+        cursor.execute("INSERT INTO users (username, email, password) VALUES (%s, %s, %s)", (username, email, password))
+        conn.commit()
+
+    except mysql.connector.Error as err:
+        return render_template("signup.html", errorMessage=f"❌ Database error: {err}")
+
+    finally:
+        cursor.close()
+        conn.close()
 
     return redirect(url_for("login"))
 
@@ -214,6 +242,66 @@ def verify_fingerprint(fingerprint_data):
     # Placeholder function to verify fingerprint with the database
     # Replace this with actual verification logic
     return True
+
+@app.route('/validate-face', methods=['POST'])
+def validate_face():
+    aadhaar_number = request.form.get('aadhaar')
+    live_image_base64 = request.form.get('live_image')
+
+    if not aadhaar_number or not live_image_base64:
+        return jsonify(success=False, message="Aadhaar number and live image are required"), 400
+
+    # Decode the Base64 live image
+    live_image_data = base64.b64decode(live_image_base64.split(',')[1])
+
+    # Connect to the database
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        # Fetch the stored face image from the database
+        cursor.execute("SELECT face FROM voters WHERE aadhar = %s", (aadhaar_number,))
+        result = cursor.fetchone()
+
+        if not result or not result['face']:
+            return jsonify(success=False, message="No face data found for the given Aadhaar number"), 404
+
+        # Decode the stored face image
+        stored_face = result['face']
+
+        # Save the live image to the database
+        cursor.execute("UPDATE voters SET live_image = %s WHERE aadhar = %s", (live_image_data, aadhaar_number))
+        conn.commit()
+
+        # Use Google Cloud Vision API to compare the images
+        client = vision.ImageAnnotatorClient()
+
+        # Prepare the stored and live images for comparison
+        stored_image = vision.Image(content=stored_face)
+        live_image = vision.Image(content=live_image_data)
+
+        # Perform face detection on both images
+        stored_response = client.face_detection(image=stored_image)
+        live_response = client.face_detection(image=live_image)
+
+        stored_faces = stored_response.face_annotations
+        live_faces = live_response.face_annotations
+
+        if not stored_faces or not live_faces:
+            return jsonify(success=False, message="Face not detected in one or both images"), 400
+
+        # Simplified comparison logic: Check if faces are detected in both images
+        if len(stored_faces) > 0 and len(live_faces) > 0:
+            return jsonify(success=True, message="Face verified successfully")
+        else:
+            return jsonify(success=False, message="Face verification failed")
+
+    except Exception as e:
+        return jsonify(success=False, message=f"Error: {str(e)}"), 500
+
+    finally:
+        cursor.close()
+        conn.close()   
 
 @app.route('/check-login-status')
 def check_login_status():
